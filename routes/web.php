@@ -11,7 +11,7 @@ Route::get('/home', function () {
     return view('home');
 })->name('home');
 
-Route::get('/producten',[ProductController::class, 'index'])->name('products');
+Route::get('/producten', [ProductController::class, 'index'])->name('products');
 
 Route::get('/inloggen', function () {
     return view('login');
@@ -49,5 +49,7 @@ Route::middleware('auth')->group(function () {
         return view('account.sales');
     })->name('accountsales');
     route::get('auth/logout', [SocialAuthController::class, 'logout'])->name('logout');
+    Route::get('account/verkopen/maken', ([ProductController::class, 'create']))->name('createproduct');
+    Route::post('account/verkopen/opslaan', ([ProductController::class, 'store']))->name('storeproduct');
 });
 

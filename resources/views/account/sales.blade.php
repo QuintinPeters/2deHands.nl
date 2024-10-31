@@ -21,7 +21,7 @@
     <section class="min-h-screen">
         <x-header />
         @if (Auth::user()->first_name == null)
-            <div id="alert" class="flex items-center p-4 mb-4 text-blue rounded-bl-lg rounded-br-lg bg-gray"
+            <div id="alert" class="flex items-center p-4 mb-4 text-blue bg-gray"
                 role="alert">
                 <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -30,9 +30,8 @@
                 </svg>
                 <span class="sr-only">Info</span>
                 <div class="ms-3 text-sm font-medium">
-                    A simple info alert with an <a href="#"
-                        class="font-semibold underline hover:no-underline">example link</a>. Give it a click if you
-                    like.
+                    Om producten te verkopen hebben we meer informatie van jou nodig <a href="#"
+                        class="font-semibold underline hover:no-underline">klik hier</a>. Om aanvullende informatie in te vullen
                 </div>
                 <button type="button"
                     class="ms-auto -mx-1.5 -my-1.5 text-blue rounded-lg focus:ring-2 focus:ring-blue p-1.5 inline-flex items-center justify-center h-8 w-8"
@@ -46,10 +45,11 @@
                 </button>
             </div>
         @endif
-        <div class="flex gap-8">
+        <div class="flex">
             <x-account-nav />
-            <x-account-title title="Verkopen"/>
+            <x-account-title title="Verkopen"/> 
         </div>
     </section>
     <x-footer />
 </body>
+</html>

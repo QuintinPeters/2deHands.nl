@@ -10,9 +10,9 @@
 </head>
 
 <body class="font-poppins">
-    
+
     <section class="min-h-screen">
-    <x-header />
+        <x-header />
     <div class="mt-4 mx-4 mb-2 flex">
         <div class="flex gap-2">
             <!-- Category 1 -->
@@ -39,15 +39,16 @@
 
 
     </div>
-    <section class="flex flex-wrap ml-4 items-center gap-3 my-3">   
-        <x-product />
-        <x-product />
-        <x-product />
-        <x-product />
-        <x-product />
-        <x-product />
+    <section class="flex flex-wrap ml-4 items-center gap-3 my-3"> 
+        @foreach ($products as $product)
+        <x-product :product="$product"/>
+        @endforeach  
+
+
 
     </section>
 </div>
+    </section>
     <x-footer />
 </body>
+</html>

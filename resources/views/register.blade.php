@@ -9,18 +9,19 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="font-poppins h-screen">
+<body class="font-poppins ">
     <x-header />
-    <section class="flex flex-col items-center h-full ">
-        <h1 class="text-3xl font-semibold text-darkgray mt-12 mb-4" >
-            Aanmelden
-        </h1>
-        <form action="{{ route('Postregister') }}" method="POST" class="flex flex-col text-darkgray w-[30%]">
+    <section class="flex flex-col items-center h-screen justify-center">
+
+        <form action="{{ route('Postregister') }}" method="POST" class="flex flex-col text-darkgray w-[30%] -mt-5">
             @csrf
-            <x-input type="text" name="name" placeholder="Naam" />
-            <x-input type="text" name="email" placeholder="E-mailadres" />
-            <x-input type="password" name="password" placeholder="Wachtwoord" />
-            <x-input type="password" name="password_confirmation" placeholder="Bevestig wachtwoord" />
+            <h1 class="text-3xl font-semibold text-darkgray mb-4 text-center">
+                Aanmelden
+            </h1>
+            <x-input type="text" inputmode="" name="name" placeholder="Naam" />
+            <x-input type="text" inputmode="email" name="email" placeholder="E-mailadres" />
+            <x-input type="password" inputmode="" name="password" placeholder="Wachtwoord" />
+            <x-input type="password"  inputmode="" name="password_confirmation" placeholder="Bevestig wachtwoord" />
             <div class="flex justify-between mb-8">
                 <p class="font-medium text-sm ">Al een account?
                     <a href="{{ route('login') }}" class="font-medium text-sm hover:underline text-blue">log hier in</a>
@@ -66,3 +67,4 @@
     </section>
 <x-footer/>
 </body>
+</html>

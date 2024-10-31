@@ -10,24 +10,24 @@
 </head>
 
 <body class="font-poppins">
+    <x-header />
 
-    <section class=" h-screen  ">
-        <x-header />
-        <div class="flex flex-col items-center h-full mt-6 " >
-            <h1 class="text-3xl font-semibold text-darkgray m-5">
-                Inloggen
-            </h1>
-            <form action="{{ route('Postlogin') }}" method="POST" class="flex flex-col text-darkgray w-[30%]">
+
+        <section class="flex flex-col justify-center items-center h-screen" >
+
+            <form action="{{ route('Postlogin') }}" method="POST" class="flex flex-col text-darkgray w-[28%] -mt-5">
                 @csrf
-                <x-input type="text" name="email" placeholder="E-mailadres" />
-                <x-input type="password" name="password" placeholder="Wachtwoord" />
+                <h1 class="text-3xl font-semibold text-darkgray mb-4 text-center">
+                    Inloggen
+                </h1>
+                <x-input type="text" inputmode="" name="email" placeholder="E-mailadres" />
+                <x-input type="password" inputmode="" name="password" placeholder="Wachtwoord" />
                 <div class="flex justify-between mb-8">
                     <a href="{{ route('register') }}" class="font-medium text-sm hover:underline">Nog geen account?</a>
                     <a href="#" class="font-medium text-sm hover:underline">Wachtwoord vergeten?</a>
                 </div>
-                <div class="flex justify-center mb-3 mt-1 focus:border-darkgray">
-                    <button type="submit" class="bg-blue text-white p-2 rounded-xl w-4/5 center ">Inloggen</button>
-                </div>
+                    <button type="submit" class="bg-blue text-white p-2 rounded-xl w-4/5 self-center m-2">Inloggen</button>
+
                 <div class="inline-flex items-center justify-center">
                     <hr class="w-4/5 h-[0.5px] my-8 bg-darkgray border-0">
                     <span class="absolute px-3 bg-white  text-darkgray">of ga door met</span>
@@ -61,8 +61,8 @@
                     </a>
                 </div>
             </form>
-        </div>
-        <x-footer></x-footer>
-    </section>
+        </section>
+        <x-footer/>
 
 </body>
+</html>

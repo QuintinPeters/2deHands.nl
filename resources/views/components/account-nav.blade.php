@@ -1,4 +1,4 @@
-<div class="font-medium pl-24 py-14  text-xl text-darkgray flex flex-col gap-10 max-w-max">
+<div class="font-medium pl-24 py-14  text-xl text-darkgray flex flex-col gap-10 max-w-max mr-20">
     <a href="{{ route('account') }}"
         class="flex gap-4 items-center {{ request()->routeIs('account') ? 'text-blue' : '' }} hover:text-blue hover:fill-blue fill-darkgray">
         <svg xmlns="http://www.w3.org/2000/svg" height="37px" fill="currentColor" viewBox="0 -960 960 960" width="37px">

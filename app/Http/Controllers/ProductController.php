@@ -12,7 +12,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('products');
+        $products = Product::all();
+        return view('products', ['products' => $products]);
     }
 
     /**
@@ -20,7 +21,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
@@ -28,7 +29,31 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'price' => 'required|numeric',
+            'quality' => 'required',
+            'image' => 'required|max:2048|image',
+        ]);
+        if ($request->has('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+
+            $filename = time() . '.' . $extension;
+            $path = 'uploads/products/';
+            $file->move($path, $filename);
+        }
+
+
+        auth()->user()->products()->create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'quality' => $request->quality,
+            'image' => $path.$filename,
+        ]);
+        return redirect()->route('accountsales')->with('success', 'Product created successfully.');
     }
 
     /**

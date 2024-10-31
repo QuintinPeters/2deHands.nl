@@ -1,14 +1,18 @@
-<div class="flex-wrap py-2  border-[1.5px] border-gray  font-medium rounded-[21px] w-72">
-    <div class="flex justify-between py-0.5 pr-2">
-        <h1 class="pl-3">Gebruiker</h1>
+<div class="flex flex-col py-2 border-[1.5px] border-gray font-medium rounded-[21px] xl:w-1/5 justify-between">
+    <div class="flex flex-row justify-between py-0.5 pr-2">
+        <h1 class="pl-3">{{ $product->user->name }}</h1>
+        {{-- * star review of the user * --}}
     </div>
-    <img src="images/productImg.png" alt="product" class="w-full">
-    <div class="flex justify-between pt-1 font-normal tracking-tight">
-        <p class="px-2">
-            name of product
-        </p>
-        <p class="pr-2">
-            prijs €€€
-        </p>
+        <div>
+            <img src="{{ $product->image }}" alt="{{ $product->name }}"
+                class="w-full object-contain xl:h-60 bg-lightgray">
+        </div>
+        <div class="flex items-end justify-between pt-1 font-normal tracking-tight h-full w-full">
+            <p class="pl-1.5 truncate">
+                {{ $product->name }}
+            </p>
+            <p class="pr-1.5">
+                €{{ $product->price }}
+            </p>
+        </div>
     </div>
-</div>

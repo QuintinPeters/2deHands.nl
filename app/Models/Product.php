@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class product extends Model
+class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -15,7 +15,9 @@ class product extends Model
         'description',
         'price',
         'quality',
+        'image',
     ];
+
 
     public function user(): BelongsTo
     {
