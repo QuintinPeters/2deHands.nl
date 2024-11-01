@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\AuthRequest;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
@@ -26,14 +28,10 @@ class UserController extends Controller
 
         return redirect()->route('account');
     }
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|confirmed|min:7',
-        ]);
-    
+        $validated = $request->validated();
+
         $user = User::create($validated);
         Auth::login($user);
 

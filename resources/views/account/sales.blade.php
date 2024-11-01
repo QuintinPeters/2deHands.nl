@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ ucwords(str_replace('-', ' ', basename(request()->path()))) }}</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <script>
-        function dismissAlert(alertId) {
-            const alertElement = document.getElementById(alertId);
-            if (alertElement) {
-                alertElement.remove();
-            }
+<x-head/>
+<script>
+    function dismissAlert(alertId) {
+        const alertElement = document.getElementById(alertId);
+        if (alertElement) {
+            alertElement.remove();
         }
-    </script>
-    @vite('resources/css/app.css')
-</head>
-
+    }
+</script>
 <body class="font-poppins">
     <section class="min-h-screen">
         <x-header />
@@ -30,7 +20,7 @@
                 </svg>
                 <span class="sr-only">Info</span>
                 <div class="ms-3 text-sm font-medium">
-                    Om producten te verkopen hebben we meer informatie van jou nodig <a href="#"
+                    Om producten te kunnen verkopen hebben we meer informatie van jou nodig <a href="#"
                         class="font-semibold underline hover:no-underline">klik hier</a>. Om aanvullende informatie in te vullen
                 </div>
                 <button type="button"

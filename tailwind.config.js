@@ -18,7 +18,8 @@ export default {
       lightgray: '#f6f6f6',
       gray: '#cad4dd',
       transparent: 'transparent',
-      darkgray: '#272727'
+      darkgray: '#272727',
+      red: '#FF0000',
     },
 
     extend: {

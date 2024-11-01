@@ -1,27 +1,27 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ ucwords(str_replace('-', ' ', basename(request()->path()))) }}</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    @vite('resources/css/app.css')
-</head>
-
+<x-head/>
 <body class="font-poppins ">
     <x-header />
     <section class="flex flex-col items-center h-screen justify-center">
 
-        <form action="{{ route('Postregister') }}" method="POST" class="flex flex-col text-darkgray w-[30%] -mt-5">
+        <form action="{{ route('Postregister') }}" method="POST" class="flex flex-col text-darkgray w-[30%] ">
             @csrf
             <h1 class="text-3xl font-semibold text-darkgray mb-4 text-center">
                 Aanmelden
             </h1>
             <x-input type="text" inputmode="" name="name" placeholder="Naam" />
+            @error('name')
+                <p class="text-red text-sm">{{ $message }}</p>
+            @enderror
             <x-input type="text" inputmode="email" name="email" placeholder="E-mailadres" />
+            @error('email')
+                <p class="text-red text-sm">{{ $message }}</p>
+            @enderror
             <x-input type="password" inputmode="" name="password" placeholder="Wachtwoord" />
-            <x-input type="password"  inputmode="" name="password_confirmation" placeholder="Bevestig wachtwoord" />
+            @error('password')
+                <p class="text-red text-sm">{{ $message }}</p>
+            @enderror
+            <x-input type="password" inputmode="" name="password_confirmation" placeholder="Bevestig wachtwoord" />
+
             <div class="flex justify-between mb-8">
                 <p class="font-medium text-sm ">Al een account?
                     <a href="{{ route('login') }}" class="font-medium text-sm hover:underline text-blue">log hier in</a>
@@ -65,6 +65,7 @@
             </div>
         </form>
     </section>
-<x-footer/>
+    <x-footer />
 </body>
+
 </html>
