@@ -5,7 +5,7 @@
     <section class="min-h-screen">
         <x-header />
     <div class="mt-4 mx-4 mb-2 flex">
-        <div class="flex gap-2">
+        <div class="flex gap-[10px]">
             <!-- Category 1 -->
             <x-category />
             <!-- Category 2 -->
@@ -27,16 +27,11 @@
 
 
         </div>
-
-
     </div>
-    <section class="flex flex-wrap ml-4 items-center gap-3 my-3"> 
+    <section class="flex flex-wrap items-center gap-2 my-3"> 
         @foreach ($products as $product)
         <x-product :product="$product"/>
-        @endforeach  
-
-
-
+        @endforeach
     </section>
 </div>
     </section>

@@ -27,6 +27,10 @@ class product extends Model
     {
         return $this->belongsTo(Order::class);
     }
+    public function categories(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 
 
 }

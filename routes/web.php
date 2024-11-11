@@ -31,7 +31,7 @@ route::get('auth/facebook/callback', [SocialAuthController::class, 'callbackface
 
 Route::middleware('auth')->group(function () {
     Route::get('account/accountoverzicht', function () {
-        return view('account.account');
+        return view('account.accountoverview');
     })->name('account');
     Route::get('account/mijn-Gegevens', function () {
         return view('account.info');

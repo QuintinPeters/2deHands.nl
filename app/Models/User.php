@@ -19,7 +19,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'first_name',
+        'last_name',
         'email',
+        'street_name',
+        'house_number',
+        'postal_code',
         'password',
         'provider_id',
     ];
@@ -46,13 +51,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function products():HasMany
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }
 
-    public function orders():HasMany
+    public function orders(): HasMany
     {
-        return $this->hasMany( Order::class);
+        return $this->hasMany(Order::class);
     }
 }
