@@ -16,6 +16,8 @@ class product extends Model
         'price',
         'quality',
         'image',
+        'category_id',
+        
     ];
 
 
@@ -27,7 +29,7 @@ class product extends Model
     {
         return $this->belongsTo(Order::class);
     }
-    public function categories(): BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }

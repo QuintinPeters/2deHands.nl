@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('category')->get(); // Eager load categories
         return view('products', ['products' => $products]);
     }
 
@@ -21,7 +22,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $categories = category::all();
+        return view('product.create', compact('categories'));
     }
 
     /**
@@ -29,12 +31,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        
+
         $request->validate([
             'name' => 'required|max:255',
             'description' => 'required',
             'price' => 'required|numeric',
             'quality' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'image' => 'required|max:2048|image',
+
         ]);
         if ($request->has('image')) {
             $file = $request->file('image');
@@ -51,8 +57,10 @@ class ProductController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'quality' => $request->quality,
-            'image' => $path.$filename,
+            'image' => $path . $filename,
+            'category_id' => $request->category_id,
         ]);
+        
         return redirect()->route('accountsales')->with('success', 'Product created successfully.');
     }
 

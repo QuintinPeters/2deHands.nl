@@ -15,14 +15,12 @@ class SocialAuthController extends Controller
 
     public function callbackGoogle()
     {
-        try 
-        {
+        try {
             $google_user = Socialite::driver('google')->user();
 
             $user = User::where('provider_id', $google_user->getId())->first();
-            
-            if (!$user) 
-            {
+
+            if (!$user) {
                 $new_user = User::create([
 
                     'name' => $google_user->getName(),
@@ -32,32 +30,31 @@ class SocialAuthController extends Controller
 
                 Auth::login($new_user);
 
-                return redirect()->intended('home');
-            }
-
-            else{
+                return redirect()->route('home');
+            } else {
                 Auth::login($user);
-                return redirect()->intended('home');
+                return redirect()->route('home');
             }
-        } catch (\Throwable $th) {
-            return redirect()->intended('inloggen');
-        }
+        } 
+        catch (\Throwable $th) {
+            return redirect()->route('inloggen');
+        };
     }
 
 
-    public function redirectFacebook() {
+    public function redirectFacebook()
+    {
         return Socialite::driver('facebook')->redirect();
     }
-    public function callbackFacebook() {
+    public function callbackFacebook()
+    {
 
-        try 
-        {
+        try {
             $facebook_user = Socialite::driver('facebook')->user();
 
             $user = User::where('provider_id', $facebook_user->getId())->first();
-            
-            if (!$user) 
-            {
+
+            if (!$user) {
                 $new_user = User::create([
 
                     'name' => $facebook_user->getName(),
@@ -67,21 +64,15 @@ class SocialAuthController extends Controller
 
                 Auth::login($new_user);
 
-                return redirect()->intended('home');
-            }
-
-            else{
+                return redirect()->route('home');
+            } else {
                 Auth::login($user);
-                return redirect()->intended('home');
+                return redirect()->route('home');
             }
         } catch (\Throwable $th) {
-            return redirect()->intended('inloggen');
+            return redirect()->route('inloggen');
         }
     }
-    public function logout()
-{
-    Auth::logout();
-    return redirect()->route('home');
-}
+
 }
 

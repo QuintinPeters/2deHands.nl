@@ -30,13 +30,13 @@ route::get('auth/facebook/redirect', [SocialAuthController::class, 'redirectFace
 route::get('auth/facebook/callback', [SocialAuthController::class, 'callbackfacebook']);
 
 Route::middleware('auth')->group(function () {
-    Route::get('account/accountoverzicht', function () {
-        return view('account.accountoverview');
-    })->name('account');
+    
     Route::get('account/mijn-Gegevens', function () {
         return view('account.info');
     })->name('accountinfo');
-
+    Route::get('account/accountoverzicht', function () {
+        return view('account.accountoverview');
+    })->name('account');
     Route::get('account/Bestellingen', function () {
         return view('account.orders');
     })->name('accountpurchases');
@@ -44,12 +44,22 @@ Route::middleware('auth')->group(function () {
     Route::get('account/betaalgegevens', function () {
         return view('account.payment');
     })->name('paymentinfo');
-
+    
     Route::get('account/verkopen', function () {
         return view('account.sales');
     })->name('accountsales');
-    route::get('auth/logout', [SocialAuthController::class, 'logout'])->name('logout');
-    Route::get('account/verkopen/maken', ([ProductController::class, 'create']))->name('createproduct');
-    Route::post('account/verkopen/opslaan', ([ProductController::class, 'store']))->name('storeproduct');
+    route::get('auth/logout', [UserController::class, 'logout'])->name('logout');
+
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('account/verkopen/maken', 'create')->name('createproduct');
+        Route::post('account/verkopen/opslaan', 'store')->name('storeproduct');
+        Route::get('account/verkopen/{product}/bewerken', 'edit')->name('editproduct');
+        Route::put('account/verkopen/{product}/opslaan', 'update')->name('updateproduct');
+        Route::delete('account/verkopen/{product}/verwijderen', 'destroy')->name('deleteproduct');
+    });
+
+    Route::get('/winkelwagen', function () {
+        return view('shoppingcart');
+    })->name('shoppingcart');
 });
 

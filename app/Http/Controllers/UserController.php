@@ -16,18 +16,17 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
-        if (!Auth::attempt($validated)) {
+        // Attempt to authenticate the user with the given credentials and provider_id as null
+        if (!Auth::attempt(['email' => $validated['email'], 'password' => $validated['password'], 'provider_id' => null])) {
             return redirect()->back()->withErrors([
-                'login' => 'Login information invalid.',
+                "error" => "The provided credentials do not match our records."
             ]);
         }
-
-        $user = User::where('email', $validated['email'])->first();
-
-        Auth::login($user);
-
-        return redirect()->route('account');
+        
+        return redirect()->route('home');
     }
+
+    
     public function register(RegisterRequest $request)
     {
         $validated = $request->validated();
@@ -35,7 +34,12 @@ class UserController extends Controller
         $user = User::create($validated);
         Auth::login($user);
 
-        return redirect()->route('account');
+        return redirect()->route('home');
     }
-
+    
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('home');
+    }
 }

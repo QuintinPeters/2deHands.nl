@@ -28,7 +28,7 @@
 
         </div>
     </div>
-    <section class="flex flex-wrap items-center gap-2 my-3"> 
+    <section class="flex flex-wrap items-center gap-2 ml-2 mt-3 mb-10"> 
         @foreach ($products as $product)
         <x-product :product="$product"/>
         @endforeach

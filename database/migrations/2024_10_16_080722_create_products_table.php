@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('quality');
             $table->string('image');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
