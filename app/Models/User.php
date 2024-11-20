@@ -25,6 +25,7 @@ class User extends Authenticatable
         'street_name',
         'house_number',
         'postal_code',
+        'city',
         'password',
         'provider_id',
     ];
@@ -59,5 +60,9 @@ class User extends Authenticatable
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+    public function shoppingCart()
+    {
+        return $this->hasMany(ShoppingCart::class);
     }
 }

@@ -8,19 +8,19 @@
             <h1 class="text-3xl font-semibold text-darkgray mb-4 text-center">
                 Aanmelden
             </h1>
-            <x-input type="text" inputmode="" name="name" placeholder="Naam" />
+            <x-input type="text" inputmode="" name="name" placeholder="Naam" value="" />
             @error('name')
                 <p class="text-red text-sm">{{ $message }}</p>
             @enderror
-            <x-input type="text" inputmode="email" name="email" placeholder="E-mailadres" />
+            <x-input type="text" inputmode="email" name="email" placeholder="E-mailadres" value="" />
             @error('email')
                 <p class="text-red text-sm">{{ $message }}</p>
             @enderror
-            <x-input type="password" inputmode="" name="password" placeholder="Wachtwoord" />
+            <x-input type="password" inputmode="" name="password" placeholder="Wachtwoord" value="" />
             @error('password')
                 <p class="text-red text-sm">{{ $message }}</p>
             @enderror
-            <x-input type="password" inputmode="" name="password_confirmation" placeholder="Bevestig wachtwoord" />
+            <x-input type="password" inputmode="" name="password_confirmation" placeholder="Bevestig wachtwoord" value="" />
 
             <div class="flex justify-between mb-8">
                 <p class="font-medium text-sm ">Al een account?

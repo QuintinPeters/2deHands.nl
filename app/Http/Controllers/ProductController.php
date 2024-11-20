@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->get(); // Eager load categories
+        $products = Product::with('category')->where('is_sold', false)->get(); // Eager load categories
         return view('products', ['products' => $products]);
     }
 
@@ -31,7 +31,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
+
 
         $request->validate([
             'name' => 'required|max:255',
@@ -60,7 +60,7 @@ class ProductController extends Controller
             'image' => $path . $filename,
             'category_id' => $request->category_id,
         ]);
-        
+
         return redirect()->route('accountsales')->with('success', 'Product created successfully.');
     }
 
@@ -69,15 +69,26 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
-    }
+        try {
+            
+            session(['previous_url' => url()->previous()]);
 
+            return view('product.show', compact('product'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Product not found.');
+        }
+    }
+    public function getUserProducts()
+    {
+        $products = auth()->user()->products()->get();
+        return view('account.sales', compact('products'));
+    }
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Product $product)
     {
-        //
+        
     }
 
     /**

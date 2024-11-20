@@ -23,7 +23,7 @@
                 {{ auth()->user()->name }}
             @endauth
         </h1>
-        <div class="flex gap-6">
+        <div class="flex gap-4">
             <a href="{{ route('shoppingcart') }}" class="">
                 <svg width="40" height="40" viewBox="0 0 50 50" fill="none"
                     xmlns="http://www.w3.org/2000/svg">

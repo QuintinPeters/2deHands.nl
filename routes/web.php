@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SocialAuthController;
 
@@ -12,6 +13,8 @@ Route::get('/home', function () {
 })->name('home');
 
 Route::get('/producten', [ProductController::class, 'index'])->name('products');
+Route::get('/producten/{product}', [ProductController::class, 'show'])->name('productpage');
+
 
 Route::get('/inloggen', function () {
     return view('login');
@@ -30,10 +33,13 @@ route::get('auth/facebook/redirect', [SocialAuthController::class, 'redirectFace
 route::get('auth/facebook/callback', [SocialAuthController::class, 'callbackfacebook']);
 
 Route::middleware('auth')->group(function () {
-    
+
     Route::get('account/mijn-Gegevens', function () {
         return view('account.info');
     })->name('accountinfo');
+    Route::put('/user/update', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/user/delete', [UserController::class, 'destroy'])->name('user.destroy');
+
     Route::get('account/accountoverzicht', function () {
         return view('account.accountoverview');
     })->name('account');
@@ -44,11 +50,11 @@ Route::middleware('auth')->group(function () {
     Route::get('account/betaalgegevens', function () {
         return view('account.payment');
     })->name('paymentinfo');
-    
-    Route::get('account/verkopen', function () {
-        return view('account.sales');
-    })->name('accountsales');
+
+    Route::get('account/verkopen', [ProductController::class, 'getUserProducts'])->name('accountsales'); // Get all products of the authenticated user
+
     route::get('auth/logout', [UserController::class, 'logout'])->name('logout');
+
 
     Route::controller(ProductController::class)->group(function () {
         Route::get('account/verkopen/maken', 'create')->name('createproduct');
@@ -61,5 +67,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/winkelwagen', function () {
         return view('shoppingcart');
     })->name('shoppingcart');
+
+    Route::get('/cart', [CartController::class, 'showCart'])->name('shoppingcart');
+    Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
 });
 

@@ -11,8 +11,8 @@
             <h1 class="text-3xl font-semibold text-darkgray mb-4 text-center">
                 Inloggen
             </h1>
-            <x-input type="text" inputmode="" name="email" placeholder="E-mailadres" />
-            <x-input type="password" inputmode="" name="password" placeholder="Wachtwoord" />
+            <x-input type="text" inputmode="" name="email" placeholder="E-mailadres" value="" />
+            <x-input type="password" inputmode="" name="password" placeholder="Wachtwoord" value=""/>
             <div class="flex justify-between mb-8">
                 <a href="{{ route('register') }}" class="font-medium text-sm hover:underline">Nog geen account?</a>
                 <a href="#" class="font-medium text-sm hover:underline">Wachtwoord vergeten?</a>
