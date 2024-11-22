@@ -56,19 +56,19 @@ Route::middleware('auth')->group(function () {
     route::get('auth/logout', [UserController::class, 'logout'])->name('logout');
 
 
-    Route::controller(ProductController::class)->group(function () {
-        Route::get('account/verkopen/maken', 'create')->name('createproduct');
-        Route::post('account/verkopen/opslaan', 'store')->name('storeproduct');
-        Route::get('account/verkopen/{product}/bewerken', 'edit')->name('editproduct');
-        Route::put('account/verkopen/{product}/opslaan', 'update')->name('updateproduct');
-        Route::delete('account/verkopen/{product}/verwijderen', 'destroy')->name('deleteproduct');
+    Route::middleware(['auth', 'completed.account'])->group(function () {
+        Route::get('account/verkopen/maken', [ProductController::class, 'create'])->name('createproduct');
+        Route::post('account/verkopen/opslaan', [ProductController::class, 'store'])->name('storeproduct');
+        Route::get('account/verkopen/{product}/bewerken', [ProductController::class, 'edit'])->name('editproduct');
+        Route::put('account/verkopen/{product}/opslaan', [ProductController::class, 'update'])->name('updateproduct');
+        Route::delete('account/verkopen/{product}/verwijderen', [ProductController::class, 'destroy'])->name('deleteproduct');
     });
 
     Route::get('/winkelwagen', function () {
         return view('shoppingcart');
     })->name('shoppingcart');
 
-    Route::get('/cart', [CartController::class, 'showCart'])->name('shoppingcart');
+    Route::get('/cart', [CartController::class, 'index'])->name('shoppingcart');
     Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
 });
 

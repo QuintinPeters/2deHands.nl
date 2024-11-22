@@ -12,7 +12,6 @@ class UserController extends Controller
     public function login(LoginRequest $request)
     {
         $validated = $request->validated();
-        // Attempt to authenticate the user with the given credentials and provider_id as null
         if (!Auth::attempt(['email' => $validated['email'], 'password' => $validated['password'], 'provider_id' => null])) {
             return redirect()->back()->withErrors([
                 "error" => "The provided credentials do not match our records."
@@ -43,6 +42,7 @@ class UserController extends Controller
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
+        $user->city = $request->city;
         $user->street_name = $request->street_name;
         $user->house_number = $request->house_number;
         $user->postal_code = $request->postal_code;

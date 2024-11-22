@@ -11,7 +11,7 @@ class ShoppingCart extends Model
             'user_id',
             'product_id',
         ];
-    protected $table = 'shopping_cart';
+    protected $table = 'shoppingcart';
     
     public function user()
     {

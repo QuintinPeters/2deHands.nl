@@ -27,6 +27,7 @@ class ProfileUpdateRequest extends FormRequest
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'street_name' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
             'house_number' => 'required|integer',
             'postal_code' => 'required|string|max:255',
         ];
@@ -39,6 +40,7 @@ class ProfileUpdateRequest extends FormRequest
             'last_name.required' => 'Achternaam is vereist',
             'email.required' => 'Email is vereist',
             'street_name.required' => 'Straatnaam is vereist',
+            'city.required' => 'Woonplaats is vereist',
             'house_number.required' => 'Huisnummer is vereist',
             'postal_code.required' => 'Postcode is vereist',
         ];

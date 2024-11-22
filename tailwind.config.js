@@ -11,6 +11,7 @@ export default {
     },
     colors: {
       green: '#33B18E',
+      lightgreen: '#c2e4db',
       blue: '#0C8CE9',
       white: '#FFFFFF',
       darkblue: '#090535',
@@ -19,7 +20,7 @@ export default {
       gray: '#cad4dd',
       transparent: 'transparent',
       darkgray: '#272727',
-      red: '#FF0000',
+      red: '#F02B2BFF',
     },
 
     extend: {
