@@ -37,7 +37,7 @@ class SocialAuthController extends Controller
             }
         } 
         catch (\Throwable $th) {
-            return redirect()->route('inloggen');
+            return redirect()->route('login');
         };
     }
 

@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
         return view('account.payment');
     })->name('paymentinfo');
 
-    Route::get('account/verkopen', [ProductController::class, 'getUserProducts'])->name('accountsales'); // Get all products of the authenticated user
+    Route::get('account/verkopen', [ProductController::class, 'getUserProducts'])->name('accountsales'); 
 
     route::get('auth/logout', [UserController::class, 'logout'])->name('logout');
 

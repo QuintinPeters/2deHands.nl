@@ -5,42 +5,52 @@
     <section class="min-h-screen">
         <x-header />
         @foreach ($errors->all() as $error)
-            <div class=" rounded-lg ">{{ $error }}</div>
+            <div class="rounded-lg">{{ $error }}</div>
         @endforeach
         <div id="image-preview" class="flex flex-wrap"></div>
         <div class="flex flex-col items-center">
-            <form method="post" action="{{ route('storeproduct') }}" enctype="multipart/form-data"
+            <form method="post" action="{{ route('updateproduct', $product) }}" enctype="multipart/form-data"
                 class="flex flex-col text-darkgray w-1/3 mt-10 mb-20">
                 @csrf
-                <h1 class="text-2xl text-center font-semibold my-5">Voeg jouw product toe</h1>
+                @method('PUT')
+                <h1 class="text-2xl text-center font-semibold my-5">Bewerk jouw product</h1>
 
                 <label for="name">Naam van jouw product:</label>
-                <x-input type="text" inputmode="" name="name" id="name" placeholder="Naam" />
+                <x-input type="text" inputmode="" name="name" id="name" placeholder="Naam" value="{{ old('name', $product->name) }}" />
 
                 <label class="description">Beschrijf het product met alle belangrijke kenmerken</label>
                 <textarea name="description" id="description" placeholder="Beschrijving"
-                    class="border-gray border rounded-lg mb-3 p-2 xl:min-h-56 xl:max-h-72"></textarea>
+                    class="border-gray border rounded-lg mb-3 p-2 xl:min-h-56 xl:max-h-72">{{ old('description', $product->description) }}</textarea>
 
                 <label for="price">Prijs van jouw product:</label>
-                <x-input type="text" inputmode="numeric" name="price" id="price" placeholder="Bv: 3,99" />
-                <label for="category_id">kies een categorie:</label>
+                <x-input type="text" inputmode="numeric" name="price" id="price" placeholder="Bv: 3,99" value="{{ old('price', $product->price) }}" />
+
+                <label for="category_id">Kies een categorie:</label>
                 <select name="category_id"
                     class="max-w-fit border border-gray rounded-lg text-sm px-2 py-1 mb-4 text-center">
-                    
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                        <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>{{ $category->category_name }}</option>
                     @endforeach
                 </select>
+
+                <label for="quality">Kwaliteit:</label>
                 <select name="quality"
                     class="max-w-fit border border-gray rounded-lg text-sm px-2 py-1 mb-4 text-center">
-
-                    <option value="Nooit gebruikt">Nooit gebruikt</option>
-                    <option value="erg goed">Erg goed</option>
-                    <option value="goed">Goed</option>
-                    <option value="gebruikt">Gebruikt</option>
-                    <option value="werkt niet">Werkt niet</option>
+                    <option value="nieuw" {{ old('quality', $product->quality) == 'nieuw' ? 'selected' : '' }}>Nooit gebruikt</option>
+                    <option value="erg goed" {{ old('quality', $product->quality) == 'erg goed' ? 'selected' : '' }}>Erg goed</option>
+                    <option value="goed" {{ old('quality', $product->quality) == 'goed' ? 'selected' : '' }}>Goed</option>
+                    <option value="gebruikt" {{ old('quality', $product->quality) == 'gebruikt' ? 'selected' : '' }}>Gebruikt</option>
+                    <option value="werkt niet" {{ old('quality', $product->quality) == 'werkt niet' ? 'selected' : '' }}>Werkt niet</option>
                 </select>
-                <label for="images" class="form-label">Upload hier foto's van jou product</label>
+
+                <label for="images" class="form-label">Upload hier foto's van jouw product</label>
+
+                <!-- Display the existing image -->
+                @if ($product->image)
+                    <div class="mb-4">
+                        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full h-52 object-cover rounded-lg">
+                    </div>
+                @endif
 
                 <div class="flex flex-col items-center justify-center w-full mb-5">
                     <label for="dropzone-file"
@@ -54,19 +64,16 @@
                             </svg>
                             <p class="mb-2 text-sm text-gray-500 dark:text-gray-400 font-semibold">Klik
                                 om te uploaden</p>
-
-                            </p>
                         </div>
                     </label>
                     <input id="dropzone-file" type="file" class="mt-3" name="image" accept="image/*" />
                 </div>
                 <div class="self-center my-3">
                     <button type="submit" class="text-white bg-green rounded-lg p-3 mx-2">Product
-                        toevoegen</button>
+                        bijwerken</button>
                     <a href="{{ route('accountsales') }}" class="rounded-lg border border-green p-3 mx-2">Annuleren</a>
                 </div>
             </form>
-            
         </div>
     </section>
     <x-footer />

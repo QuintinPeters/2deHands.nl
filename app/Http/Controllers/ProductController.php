@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Storage;
 
 class ProductController extends Controller
 {
@@ -70,7 +71,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         try {
-            
+
             session(['previous_url' => url()->previous()]);
 
             return view('product.show', compact('product'));
@@ -88,7 +89,12 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        
+        if (auth()->id() !== $product->user_id) {
+            return redirect()->route('accountsales')->with('error', 'You do not have permission to edit this product.');
+        }
+
+        $categories = Category::all();
+        return view('product.edit', compact('product', 'categories'));
     }
 
     /**
@@ -96,7 +102,48 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        if (auth()->id() !== $product->user_id) {
+            return redirect()->route('accountsales')->with('error', 'You do not have permission to update this product.');
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'quality' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image',
+        ]);
+
+        $data = $request->except('image');
+
+        if ($request->hasFile('image')) {
+            // Delete the old image if it exists
+            if ($product->image) {
+                Storage::delete($product->image);
+            }
+
+
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+
+            $filename = time() . '.' . $extension;
+            $path = 'uploads/products/';
+            $file->move($path, $filename);
+
+        }
+
+        $product->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'quality' => $request->quality,
+            'image' => $path . $filename,
+            'category_id' => $request->category_id,
+        ]);
+
+
+        return redirect()->route('accountsales')->with('success', 'Product updated successfully.');
     }
 
     /**
@@ -104,6 +151,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if (auth()->id() !== $product->user_id) {
+            return redirect()->route('accountsales')->with('error', 'You do not have permission to delete this product.');
+        }
+
+        $product->delete();
+
+        return redirect()->route('accountsales')->with('success', 'Product deleted successfully.');
     }
 }
