@@ -1,16 +1,16 @@
 <div
-class="flex flex-col py-2 border-[1.5px] border-gray font-medium rounded-[21px] min-w-[16%] max-w-96 justify-between">
+class="flex flex-col py-2 border-[1.5px] border-gray rounded-[21px] w-[300px] justify-between">
 
-<div class="flex flex-row justify-between py-0.5 pr-2">
+<div class="flex flex-row justify-between font-medium py-0.5 pr-2">
     <h1 class="pl-3">{{ $product->user->name }} </h1>
     <h2>REVIEW RATING </h2>
 </div>
-<a href="{{ route('productpage', ['product' => $product]) }}">
+<a href="{{ route('product.show', ['product' => $product]) }}">
     <img src="../{{ $product->image }}" alt="{{ $product->name }}"
         class="w-full object-contain h-60 bg-lightgray">
 </a>
-<div class="flex items-end justify-between pt-1 font-medium tracking-tight h-full w-full">
-    <a href="{{ route('productpage', ['product' => $product]) }}" class="pl-2 truncate">
+<div class="flex items-end justify-between pt-1 tracking-tight h-full w-full">
+    <a href="{{ route('product.show', ['product' => $product]) }}" class="pl-2 truncate">
         {{ $product->name }}
     </a>
     <p class="mr-1.5 ml-2">
@@ -18,7 +18,7 @@ class="flex flex-col py-2 border-[1.5px] border-gray font-medium rounded-[21px] 
     </p>
 </div>
 <div class="flex justify-center gap-2 mt-2">
-    <a href="{{ route('editproduct', [$product])}}" class="bg-blue text-white  p-2 rounded-full">
+    <a href="{{ route('editproduct', [$product])}}" class="bg-blue text-white p-2 rounded-full">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
             width="24px" fill="#fff">
             <path

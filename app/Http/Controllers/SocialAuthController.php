@@ -30,10 +30,10 @@ class SocialAuthController extends Controller
 
                 Auth::login($new_user);
 
-                return redirect()->route('home');
+                return redirect()->intended('home');
             } else {
                 Auth::login($user);
-                return redirect()->route('home');
+                return redirect()->intended('home');
             }
         } 
         catch (\Throwable $th) {
@@ -64,10 +64,10 @@ class SocialAuthController extends Controller
 
                 Auth::login($new_user);
 
-                return redirect()->route('home');
+                return redirect()->intended('home');
             } else {
                 Auth::login($user);
-                return redirect()->route('home');
+                return redirect()->intended('home');
             }
         } catch (\Throwable $th) {
             return redirect()->route('inloggen');

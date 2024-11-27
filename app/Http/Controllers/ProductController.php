@@ -71,9 +71,6 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         try {
-
-            session(['previous_url' => url()->previous()]);
-
             return view('product.show', compact('product'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Product not found.');
@@ -153,6 +150,9 @@ class ProductController extends Controller
     {
         if (auth()->id() !== $product->user_id) {
             return redirect()->route('accountsales')->with('error', 'You do not have permission to delete this product.');
+        }
+        if ($product->image) {
+            Storage::delete($product->image);
         }
 
         $product->delete();

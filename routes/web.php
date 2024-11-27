@@ -13,7 +13,7 @@ Route::get('/home', function () {
 })->name('home');
 
 Route::get('/producten', [ProductController::class, 'index'])->name('products');
-Route::get('/producten/{product}', [ProductController::class, 'show'])->name('productpage');
+Route::get('/producten/{product}', [ProductController::class, 'show'])->name('product.show');
 
 
 Route::get('/inloggen', function () {
@@ -51,10 +51,12 @@ Route::middleware('auth')->group(function () {
         return view('account.payment');
     })->name('paymentinfo');
 
-    Route::get('account/verkopen', [ProductController::class, 'getUserProducts'])->name('accountsales'); 
-
+    Route::get('account/verkopen', [ProductController::class, 'getUserProducts'])->name('accountsales');
     route::get('auth/logout', [UserController::class, 'logout'])->name('logout');
 
+    Route::get('/winkelwagen', [CartController::class, 'index'])->name('shoppingcart');
+    Route::post('/winkelwagen/toevoegen/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::delete('/winkelwagen/verwijderen/{cart}', [CartController::class, 'remove'])->name('cart.remove');
 
     Route::middleware(['auth', 'completed.account'])->group(function () {
         Route::get('account/verkopen/maken', [ProductController::class, 'create'])->name('createproduct');
@@ -64,11 +66,5 @@ Route::middleware('auth')->group(function () {
         Route::delete('account/verkopen/{product}/verwijderen', [ProductController::class, 'destroy'])->name('deleteproduct');
     });
 
-    Route::get('/winkelwagen', function () {
-        return view('shoppingcart');
-    })->name('shoppingcart');
-
-    Route::get('/cart', [CartController::class, 'index'])->name('shoppingcart');
-    Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
 });
 

@@ -14,7 +14,7 @@
     <x-header />
     <section class="min-h-screen font-poppins text-darkgray ">
         <div class="my-8 w-full flex ">
-            <a href="{{ session('previous_url', route('products')) }}"
+            <a href="{{ url()->previous() }}"
                 class="ml-12 h-min text-blue hover:underline">&lt;terug</a>
 
             <div class="flex flex-col my-8 mx-36">
@@ -23,18 +23,18 @@
                         class="underline text-blue">{{ $product->user->name }}</a>
                     | REVIEW RATING
                 </h2>
-                <img class="max-w-full mb-3 bg-lightgray" src="../{{ $product->image }}" alt="{{ $product->name }}">
-                <p class="font-medium">Staat van product: {{$product->quality}}</p>
+                <img class="max-w-xl mb-1.5 bg-lightgray" src="../{{ $product->image }}" alt="{{ $product->name }}">
+                <p class="font-medium mb-3">Staat van product: {{$product->quality}}</p>
                 <p class="text-xl font-semibold">Productbeschrijving</p>
                 <p class="first-letter:capitalize text-[15px] max-w-lg">{{ $product->description }}</p>
             </div>
 
-            <div class="mr-16 flex flex-col gap-6 items-center">
+            <div class="mr-16 flex flex-col gap-20   items-center">
                 <div>
                     <h2 class="text-2xl font-semibold">€{{ number_format($product->price, 2, ',', '.') }}</h2>
-                    <p class="text-lg">Categorie: {{ $product->category->category_name }}</p>
+                    <p class="text-lg">Categorie {{ $product->category->category_name }}</p>
                 </div>
-                <form action="" method="POST" class="">
+                <form action="{{ route('cart.add',['product'=> $product]) }}" method="POST" class="">
                     @csrf
                     <button type="submit"
                         class="bg-blue text-white w-44 flex items-center justify-center gap-2 p-2 rounded-lg">

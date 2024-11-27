@@ -36,7 +36,7 @@
                 <label for="quality">Kwaliteit:</label>
                 <select name="quality"
                     class="max-w-fit border border-gray rounded-lg text-sm px-2 py-1 mb-4 text-center">
-                    <option value="nieuw" {{ old('quality', $product->quality) == 'nieuw' ? 'selected' : '' }}>Nooit gebruikt</option>
+                    <option value="nooit gebruikt" {{ old('quality', $product->quality) == 'nooit gebruikt' ? 'selected' : '' }}>Nooit gebruikt</option>
                     <option value="erg goed" {{ old('quality', $product->quality) == 'erg goed' ? 'selected' : '' }}>Erg goed</option>
                     <option value="goed" {{ old('quality', $product->quality) == 'goed' ? 'selected' : '' }}>Goed</option>
                     <option value="gebruikt" {{ old('quality', $product->quality) == 'gebruikt' ? 'selected' : '' }}>Gebruikt</option>
