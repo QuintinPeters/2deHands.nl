@@ -1,13 +1,16 @@
 <div class="flex justify-between my-5 border-b py-2 border-gray">
     <div class="flex">
         <a href="{{ route('product.show', ['product' => $cartItem->product->id]) }}">
-            <img src="{{ $cartItem->product->image }}" alt="{{ $cartItem->product->name }}" class="w-28 h-28 object-cover">
+            <img src="{{ $cartItem->product->image }}" alt="{{ $cartItem->product->name }}"
+                class="w-32 h-32 object-contain bg-gray">
         </a>
-        <div class="ml-5">
-            <a href="{{ route('product.show', ['product' => $cartItem->product->id]) }}">
-                <h3 class="font-semibold text-lg">{{ $cartItem->product->name }} </h3>
-                <p class="max-w-lg truncate">{{ $cartItem->product->description }}</p>
+        <div class="ml-5 flex flex-col">
+            <a href="{{ route('product.show', ['product' => $cartItem->product->id]) }}"
+                class="font-semibold text-blue text-[1.125rem]">{{ $cartItem->product->name }}
             </a>
+            <p class="-mt-1.5 text-sm" href="#">Verkoper: <a href="#" class="underline hover:no-underline text-blue"> {{ $cartItem->product->user->name }}</a></p>
+            <p class="max-w-lg truncate text-sm  mr-4">{{ $cartItem->product->description }}</p>
+
         </div>
     </div>
     <div class="flex items-center gap-2">

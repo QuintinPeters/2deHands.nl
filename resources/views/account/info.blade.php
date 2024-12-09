@@ -5,6 +5,7 @@
         <x-header />
         <div class="flex">
             <x-account-nav />
+            <x-snackbar/>
             <div class="w-2/5">
                 <x-account-title title="Mijn gegevens" />
                 <p>Pas hier je accountgegevens aan en houd je informatie up-to-date voor een betrouwbaar profiel!</p>

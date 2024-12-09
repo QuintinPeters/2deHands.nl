@@ -37,14 +37,16 @@
                 </button>
             </div>
         @endif
+        <x-snackbar/>
+
         <div class="flex">
             <x-account-nav />
             <div class="flex-1 ml-2 mt-3 mb-10">
                 <x-account-title title="Mijn Producten" />
-                <div class="flex justify-end mb-4 mr-4  ">
+                <div class="flex justify-end mb-6 mr-4  ">
                     @if (Auth::user()->first_name == null)
                     <button
-                    class="bg-gray flex items-center gap-1 text-white px-4 py-2.5 rounded">
+                    class="bg-gray flex items-center gap-1 cursor-not-allowed text-white px-4 py-2.5 rounded-lg" disabled>
                     <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px"
                         fill="#fff">
                         <path
@@ -53,7 +55,7 @@
                     Toevoegen</a>
                     @else
                     <a href="{{ route('createproduct') }}"
-                    class="bg-blue flex items-center gap-1 text-white px-4 py-2.5 rounded">
+                    class="bg-blue flex items-center gap-0.5 text-white px-3 py-2.5 rounded-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px"
                         fill="#fff">
                         <path
@@ -61,7 +63,6 @@
                     </svg>Product
                     Toevoegen</a>
                     @endif
-                    
                 </div>
                 <div class="flex flex-wrap items-center gap-2">
                     @forelse ($products as $product)
@@ -71,6 +72,7 @@
                         </h2>
                     @endforelse
                 </div>
+
             </div>
         </div>
     </section>

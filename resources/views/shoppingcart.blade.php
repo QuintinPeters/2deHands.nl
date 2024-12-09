@@ -3,6 +3,7 @@
 <body class="text-darkgray">
     <x-header />
     <section class="min-h-screen">
+        <x-snackbar />
         <div class="mx-16 my-10">
             <h1 class="font-semibold text-3xl justify-self-start">Winkelwagen</h1>
 
@@ -29,7 +30,7 @@
                         <h1 class="font-semibold text-2xl">Overzicht</h1>
                         <div class="flex justify-between px-1 ">
                             <p>artikelen({{ $cartItems->count() }})</p>
-                            <p class="">€{{ number_format($totalPrice , 2, ',', '.') }}</p>
+                            <p class="">€{{ number_format($totalPrice, 2, ',', '.') }}</p>
                         </div>
                         <div class="flex justify-between mb-1 px-1">
                             <p>Overige kosten</p>
@@ -40,12 +41,11 @@
                     <div class="bg-lightgreen py-2 ">
                         <div class="flex justify-between px-3">
                             <p>totaalbedrag</p>
-                            <p>€{{ number_format($totalPrice , 2, ',', '.') }}</p>
+                            <p>€{{ number_format($totalPrice, 2, ',', '.') }}</p>
                         </div>
                     </div>
                     <div class="flex justify-center items-center h-1/3">
-                        <a href="#" class="bg-blue text-white p-2 rounded-lg ">Verder naar
-                            bestellen</a>
+                        <a href="{{ route('order.store') }}" class="bg-blue text-white p-2 rounded-lg ">Bestellen</a>
                     </div>
                 </div>
                 @endif

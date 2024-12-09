@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('comment');
             $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('reviewer_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->foreignId('orderitem_id')->constrained('order_items')->onDelete('cascade');
             $table->date('review_date');
 
 

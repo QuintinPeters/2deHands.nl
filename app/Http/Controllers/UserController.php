@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Mail\accountCreated;
+use App\Mail\ConfirmOrder;
 use App\Models\User;
 use Auth;
+use Mail;
 use Request;
 class UserController extends Controller
 {
@@ -13,9 +16,7 @@ class UserController extends Controller
     {
         $validated = $request->validated();
         if (!Auth::attempt(['email' => $validated['email'], 'password' => $validated['password'], 'provider_id' => null])) {
-            return redirect()->back()->withErrors([
-                "error" => "The provided credentials do not match our records."
-            ]);
+            return redirect()->back();
         }
 
         return redirect()->intended();
@@ -29,7 +30,7 @@ class UserController extends Controller
         $user = User::create($validated);
         Auth::login($user);
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Account succesvol aangemaakt');
     }
 
 
@@ -49,14 +50,14 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('accountinfo')->with('success', 'Profile updated successfully.');
+        return redirect()->route('accountinfo')->with('success', 'Account informatie is aangepast');
 
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Je bent uitgelogd!');
     }
     public function destroy(Request $request)
     {
@@ -64,7 +65,7 @@ class UserController extends Controller
         Auth::logout();
         $user->delete();
 
-        return redirect()->route('home')->with('success', 'Account deleted successfully.');
+        return redirect()->route('home')->with('success', 'Account is verwijderd');
     }
 
 }

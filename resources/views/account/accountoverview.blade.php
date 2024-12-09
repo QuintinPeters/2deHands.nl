@@ -3,6 +3,7 @@
 <body class="font-poppins">
     <section class="min-h-screen">
         <x-header />
+        <x-snackbar/>
         <div class="flex">
             <x-account-nav />
             <div>

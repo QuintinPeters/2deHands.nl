@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmOrder;
 use App\Models\category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Mail;
 use Storage;
 
 class ProductController extends Controller
@@ -15,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('category')->where('is_sold', false)->get(); // Eager load categories
-        return view('products', ['products' => $products]);
+        return view('products', compact('products'));
     }
 
     /**
@@ -25,6 +27,7 @@ class ProductController extends Controller
     {
         $categories = category::all();
         return view('product.create', compact('categories'));
+
     }
 
     /**
@@ -62,7 +65,8 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
         ]);
 
-        return redirect()->route('accountsales')->with('success', 'Product created successfully.');
+
+        return redirect()->route('accountsales')->with('success', 'Product is succesvol toegevoegd');
     }
 
     /**
@@ -73,7 +77,7 @@ class ProductController extends Controller
         try {
             return view('product.show', compact('product'));
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Product not found.');
+            return redirect()->back()->with('error', 'Product niet gevonden');
         }
     }
     public function getUserProducts()
@@ -87,7 +91,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         if (auth()->id() !== $product->user_id) {
-            return redirect()->route('accountsales')->with('error', 'You do not have permission to edit this product.');
+            return redirect()->route('accountsales')->with('error', 'Je mag dit product niet aan passen');
         }
 
         $categories = Category::all();
@@ -100,7 +104,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         if (auth()->id() !== $product->user_id) {
-            return redirect()->route('accountsales')->with('error', 'You do not have permission to update this product.');
+            return redirect()->route('home')->with('error', 'Je mag dit product niet aan passen');
         }
 
         $request->validate([
@@ -128,6 +132,9 @@ class ProductController extends Controller
             $path = 'uploads/products/';
             $file->move($path, $filename);
 
+        } else {
+            $filename = $product->image;
+            $path = '';
         }
 
         $product->update([
@@ -140,7 +147,7 @@ class ProductController extends Controller
         ]);
 
 
-        return redirect()->route('accountsales')->with('success', 'Product updated successfully.');
+        return redirect()->route('accountsales')->with('success', 'Product is succesvol aangepast');
     }
 
     /**
@@ -149,7 +156,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         if (auth()->id() !== $product->user_id) {
-            return redirect()->route('accountsales')->with('error', 'You do not have permission to delete this product.');
+            return redirect()->route('accountsales')->with('error', 'Je mag dit product niet aanpassen');
         }
         if ($product->image) {
             Storage::delete($product->image);
@@ -157,6 +164,6 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect()->route('accountsales')->with('success', 'Product deleted successfully.');
+        return redirect()->route('accountsales')->with('success', 'Het product is succesvol verwijderd');
     }
 }

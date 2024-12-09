@@ -12,16 +12,19 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'order_date'
+    ];
+    public $timestamps = false;
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-    public function products(): HasMany
+    public function orderItems()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(OrderItem::class);
     }
-    public function reviews(): HasOne
-    {
-        return $this->hasOne(Review::class);
-    }
+    
 }

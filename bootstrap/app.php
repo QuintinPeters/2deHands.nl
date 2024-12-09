@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias(
             [
                 'completed.account' => \App\Http\Middleware\CompletedProfile::class,
+                'orderItem.belongsToUser' => \App\Http\Middleware\OrderItemBelongsToUser::class,
             ]
         );
     })

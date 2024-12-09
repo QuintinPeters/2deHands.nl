@@ -22,7 +22,7 @@
         </h3>
     </a>
 
-    <a href="{{ route('accountpurchases') }}"
+    <a href="{{ route('orders') }}"
         class="flex gap-4 items-center {{ request()->routeIs('accountpurchases') ? 'text-blue' : '' }} hover:text-blue hover:fill-blue fill-darkgray">
         <svg xmlns="http://www.w3.org/2000/svg" height="37px" viewBox="0 -960 960 960" width="37px"
             fill="currentColor">

@@ -16,7 +16,6 @@ class CartController extends Controller
         });
         return view('shoppingcart', compact('cartItems', 'totalPrice'));
     }
-
     public function addToCart(Product $product)
     {
         $userId = auth()->id();
