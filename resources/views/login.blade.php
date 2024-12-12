@@ -5,14 +5,14 @@
 
 
     <section class="flex flex-col justify-center items-center h-screen">
-
+        <x-snackbar />
         <form action="{{ route('Postlogin') }}" method="POST" class="flex flex-col text-darkgray w-[28%] -mt-5">
             @csrf
             <h1 class="text-3xl font-semibold text-darkgray mb-4 text-center">
                 Inloggen
             </h1>
             <x-input type="text" inputmode="" name="email" placeholder="E-mailadres" value="" />
-            <x-input type="password" inputmode="" name="password" placeholder="Wachtwoord" value=""/>
+            <x-input type="password" inputmode="" name="password" placeholder="Wachtwoord" value="" />
             <div class="flex justify-between mb-8">
                 <a href="{{ route('register') }}" class="font-medium text-sm hover:underline">Nog geen account?</a>
                 <a href="#" class="font-medium text-sm hover:underline">Wachtwoord vergeten?</a>

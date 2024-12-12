@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Review;
+use Auth;
 use Closure;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
@@ -24,8 +25,9 @@ class OrderItemBelongsToUser
                 ->with('error', 'Deze bestelling bestaat niet.');
         }
         if ($orderItem->order->user_id != auth()->id()) {
-            return redirect()->route('home')
-                ->with('error', 'Je hebt deze bestelling niet geplaatst.');
+
+            return redirect()->route('login')
+                ->with('error', 'Je hebt deze bestelling niet geplaatst. log in met een ander account.');
         }
         if (
             Review::where('orderitem_id', $orderItem->id)
