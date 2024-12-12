@@ -1,15 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\ProfileUpdateRequest;
-use App\Http\Requests\RegisterRequest;
-use App\Mail\accountCreated;
-use App\Mail\ConfirmOrder;
-use App\Models\User;
 use Auth;
 use Mail;
 use Request;
+use App\Models\User;
+use App\Models\Review;
+use App\Models\product;
+use App\Mail\ConfirmOrder;
+use App\Mail\accountCreated;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\ProfileUpdateRequest;
+
 class UserController extends Controller
 {
     public function login(LoginRequest $request)
@@ -33,7 +36,13 @@ class UserController extends Controller
         return redirect()->route('home')->with('success', 'Account succesvol aangemaakt');
     }
 
+    public function show(User $user)
+    {
+        $products = product::where('user_id', $user->id)->get();
+        $reviews = Review::where('seller_id', $user->id)->get();
 
+        return view('profile', compact('user', 'products', 'reviews'));
+    }
     public function update(ProfileUpdateRequest $request)
     {
         $request->validated();

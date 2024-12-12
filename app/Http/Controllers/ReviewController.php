@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\createReviewRequest;
 use App\Models\Order;
-use App\Models\OrderItem;
-use App\Models\product;
 use App\Models\Review;
+use App\Models\product;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Requests\createReviewRequest;
 
 class ReviewController extends Controller
 {
@@ -24,6 +25,7 @@ class ReviewController extends Controller
      */
     public function create(OrderItem $orderitem, product $product)
     {
+
         return view('review.create', compact('orderitem', 'product'));
     }
 
@@ -32,19 +34,19 @@ class ReviewController extends Controller
      */
     public function store(createReviewRequest $request)
     {
-        $request->validated();
+        $validated = $request->validated();
+        $product = product::find($request->product_id);
 
-        $request->user()->reviews()->create([
-            'rating' => $request->rating,
-            'comment' => $request->comment,
-            'seller_id' => $request->product->user->id,
+        Review::create([
+            'rating' => $validated['rating'],
+            'comment' => $validated['comment'],
+            'seller_id' => $product->user->id,
             'reviewer_id' => auth()->id(),
-            'orderitem_id' => $request->orderitem_id,
+            'orderitem_id' => $validated['orderitem_id'],
             'review_date' => now(),
-
         ]);
 
-        return redirect()->route('account')->with('succes', 'Je review is succesvol toegevoegd');
+        return redirect()->route('account')->with('success', 'Je review is succesvol toegevoegd');
     }
 
     /**

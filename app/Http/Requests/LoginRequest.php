@@ -26,7 +26,7 @@ class LoginRequest extends FormRequest
             'password' => 'required|min:8',
         ];
     }
-    public function messages()
+    public function messages(): array
     {
         return [
             'email.required' => 'The email address is required.',

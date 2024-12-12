@@ -16,6 +16,7 @@ class CartController extends Controller
         });
         return view('shoppingcart', compact('cartItems', 'totalPrice'));
     }
+
     public function addToCart(Product $product)
     {
         $userId = auth()->id();
@@ -27,14 +28,14 @@ class CartController extends Controller
                 'user_id' => $userId,
                 'product_id' => $product->id,
             ]);
-            return redirect()->route('shoppingcart')->with('success', 'Product toegevoegd aan winkelwagen.');
+            return redirect()->route('cart.index')->with('success', 'Product toegevoegd aan winkelwagen.');
         }
     }
     public function remove(Cart $cart)
     {
         $cart->delete();
 
-        return redirect()->route('shoppingcart')->with('success', 'Product verwijderd uit winkelwagen.');
+        return redirect()->route('cart.index')->with('success', 'Product verwijderd uit winkelwagen.');
     }
 
 }

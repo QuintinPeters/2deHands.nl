@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ConfirmOrder;
-use App\Models\category;
-use App\Models\Product;
-use Illuminate\Http\Request;
 use Mail;
 use Storage;
+use App\Models\User;
+use App\Models\Product;
+use App\Models\category;
+use App\Mail\ConfirmOrder;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(User $user)
     {
         $products = Product::with('category')->where('is_sold', false)->get(); // Eager load categories
-        return view('products', compact('products'));
+        return view('products', compact('products', 'user'));
     }
 
     /**

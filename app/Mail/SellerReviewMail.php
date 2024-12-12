@@ -18,7 +18,7 @@ class SellerReviewMail extends Mailable
      */
     public function __construct(public array $data)
     {
-        //
+        
     }
 
     /**
@@ -27,7 +27,8 @@ class SellerReviewMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Wat vond je van je aankoop bij'. $this->data['seller_name'],
+            subject: 'Wat vond je van je aankoop bij '. $this->data['seller_name'],
+            
         );
     }
 
@@ -38,6 +39,7 @@ class SellerReviewMail extends Mailable
     {
         return new Content(
             view: 'mails.sellerReview',
+            // with: ['data' => $this->data],
         );
     }
 

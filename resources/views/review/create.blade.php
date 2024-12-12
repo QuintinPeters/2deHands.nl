@@ -60,14 +60,8 @@
     <x-header />
 
     <section class="max-w-2xl mx-auto py-8 px-4 min-h-screen">
-        <h1 class="text-2xl font-semibold mb-6">Schrijf een review</h1>
+        <h1 class="text-2xl font-semibold mb-6">Schrijf een review</h1> 
 
-        <form action="" method="POST" class="space-y-6">
-            @csrf
-            <input type="hidden" name="order_id" value="">
-            <input type="hidden" name="product_id" value="">
-
-            <!-- Product Info -->
             <div class="flex items-center space-x-4 bg-lightgray p-4 rounded-lg">
                 <img src="{{ asset($product->image) }}" alt="{{ $product->name }} "
                     class="w-32 h-32 object-contain bg-white">
@@ -76,7 +70,11 @@
                     <p class="text-sm text-darkgray">Verkoper: {{ $product->user->name }}</p>
                 </div>
             </div>
-
+            <form action="{{ route('review.store') }}" method="POST" class="space-y-6">
+                @csrf
+                {{-- @dd($orderitem) --}}
+                <input type="hidden" name="orderitem_id" value="{{$orderitem->id}}">
+                <input type="hidden" name="product_id" value="{{$orderitem->product->id}}">
             <!-- Star Rating -->
             <div class="space-y-2">
                 <label class="block font-medium">Jouw beoordeling</label>
@@ -95,16 +93,23 @@
                         </div>
                     @endfor
                 </div>
+                @error('rating')
+                    <p class="text-red text-sm">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Review Text -->
             <div>
-                <label for="comment" class="block font-medium">Beoordeel <span class="text-blue">{{ $product->user->name }}</span> op
+                <label for="comment" class="block font-medium">Beoordeel <span
+                        class="text-blue">{{ $product->user->name }}</span> op
                     eerlijkheid,
                     betrouwbaarheid en snelheid.</label>
                 <textarea name="comment" id="comment" rows="4"
-                    class="w-full border border-gray rounded-lg p-2 min-h-20 max-h-60 " required></textarea>
+                    class="w-full border border-gray rounded-lg p-2 min-h-20 max-h-60"></textarea>
             </div>
+            @error('comment')
+                <p class="text-red text-sm">{{ $message }}</p>
+            @enderror
 
             <button type="submit"
                 class="w-full bg-blue text-white py-2 font-medium px-4 rounded-lg hover:bg-opacity-90 transition">

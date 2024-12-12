@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="flex justify-center items-center h-1/3">
-                        <a href="{{ route('order.store') }}" class="bg-blue text-white p-2 rounded-lg ">Bestellen</a>
+                        <a href="{{ route('order.store') }}" class="bg-blue text-white py-2 px-4 rounded-lg ">Bestellen</a>
                     </div>
                 </div>
                 @endif

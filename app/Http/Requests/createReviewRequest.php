@@ -22,21 +22,21 @@ class createReviewRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'rating' => 'required|numeric|min:1|max:5',
+
+            'product_id' => 'required',
+            'orderitem_id' => 'required',
+            'rating' => 'required|min:1|max:5',
             'comment' => 'required|max:255',
         ];
     }
-    public function messages()
+    public function messages(): array
     {
         return [
             'rating.required' => 'Vul een rating in',
+            'orderitem_id' => 'Er is iets fout gegaan, probeer het opnieuw',
             'comment.required' => 'Schrijf een review',
             'comment.max' => 'De review mag maximaal 255 tekens bevatten',
         ];
     }
-    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
-    {
-        return redirect()->back()->withErrors($validator->errors())->withInput();
-
-    }
+    
 }

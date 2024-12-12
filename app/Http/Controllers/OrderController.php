@@ -81,8 +81,20 @@ class OrderController extends Controller
             'order_items' => $order->orderItems()->with('product')->get()
         ]));
 
-        Mail::to(auth()->user()->email)->later(now()->addMinute(), new SellerReviewMail(['seller_name' => $orderitem->product->user->name,]));
-
+        foreach ($order->orderItems as $orderItem) {
+            $product = $orderItem->product;
+            $seller = $product->user;
+            $buyer = auth()->user();
+    
+            $data = [
+                'seller_name' => $seller->name,
+                'buyer_name' => $buyer->name,
+                'product_name' => $product->name,
+                'review_link' => route('review.create', ['orderitem' => $orderItem->id, 'product' => $product->id])
+            ];
+    
+            Mail::to($buyer->email)->send(new SellerReviewMail($data));
+        }
         Cart::where('user_id', auth()->id())->delete();
 
         return redirect()->route('account')

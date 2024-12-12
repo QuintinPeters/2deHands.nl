@@ -5,13 +5,15 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SocialAuthController;
-
 use App\Http\Controllers\UserController;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return redirect('home');
-})->name('home');
+});
+
 Route::get('/home', function () {
     return view('home');
 })->name('home');
@@ -29,6 +31,7 @@ Route::get('/registreren', function () {
 })->name('register');
 Route::post('/registreren', [UserController::class, 'register'])->name('Postregister');
 Route::post('/inloggen', [UserController::class, 'login'])->name('Postlogin');
+route::get('profiel/{user}', [UserController::class, 'show'])->name('profile');
 
 route::get('auth/google', [SocialAuthController::class, 'redirectgoogle'])->name('google-auth');
 route::get('auth/google/callback', [SocialAuthController::class, 'callbackgoogle']);
@@ -55,16 +58,17 @@ Route::middleware('auth')->group(function () {
         return view('account.payment');
     })->name('paymentinfo');
 
-    Route::get('account/verkopen', [ProductController::class, 'getUserProducts'])->name('accountsales');
-    route::get('auth/logout', [UserController::class, 'logout'])->name('logout');
+    
+    Route::get('/account/verkopen', [ProductController::class, 'getUserProducts'])->name('accountsales');
+    Route::get('/auth/logout', [UserController::class, 'logout'])->name('logout');
 
-    Route::get('/winkelwagen', [CartController::class, 'index'])->name('shoppingcart');
+    Route::get('/winkelwagen', [CartController::class, 'index'])->name('cart.index');
     Route::post('/winkelwagen/toevoegen/{product}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::delete('/winkelwagen/verwijderen/{cart}', [CartController::class, 'remove'])->name('cart.remove');
-
+    
     Route::get('/bestellen', [OrderController::class, 'store'])->name('order.store');
 
-    Route::middleware(['auth', 'completed.account'])->group(function () {
+    Route::middleware('completed.account')->group(function () {
         Route::get('account/verkopen/maken', [ProductController::class, 'create'])->name('createproduct');
         Route::post('account/verkopen/opslaan', [ProductController::class, 'store'])->name('storeproduct');
         Route::get('account/verkopen/{product}/bewerken', [ProductController::class, 'edit'])->name('editproduct');
@@ -72,9 +76,9 @@ Route::middleware('auth')->group(function () {
         Route::delete('account/verkopen/{product}/verwijderen', [ProductController::class, 'destroy'])->name('deleteproduct');
     });
 
-    Route::middleware(['auth', 'orderItem.belongsToUser'])->group(function () {
-        Route::get('review/create/{product}/{orderItem}', [ReviewController::class, 'create'])->name('review.create');
+    Route::middleware('orderItem.belongsToUser')->group(function () {
+        Route::get('review/create/{orderitem}/{product}', [ReviewController::class, 'create'])->name('review.create');
     });
-
+    Route::post('review/create/opslaan', [ReviewController::class, 'store'])->name('review.store');
 });
 

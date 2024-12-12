@@ -16,9 +16,11 @@ class ConfirmOrder extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public array $data)
+    public array $data;
+
+    public function __construct(array $data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -38,6 +40,7 @@ class ConfirmOrder extends Mailable
     {
         return new Content(
             view: 'mails.confirmedOrder',
+            with: ['data' => $this->data],
         );
     }
 

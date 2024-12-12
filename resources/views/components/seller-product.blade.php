@@ -18,7 +18,7 @@
         <h2>REVIEW RATING </h2>
     </div>
     <a href="{{ route('product.show', ['product' => $product]) }}">
-        <img src="../{{ $product->image }}" alt="{{ $product->name }}" class="w-full object-contain h-60 bg-lightgray">
+        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full object-contain h-60 bg-lightgray">
     </a>
     <div class="flex items-end justify-between pt-1 tracking-tight h-full w-full">
         <a href="{{ route('product.show', ['product' => $product]) }}" class="pl-2 truncate">
@@ -32,7 +32,7 @@
         <div class="flex justify-center gap-2 mt-2">
             <div id="snackbar"
                 class="fixed bottom-4 right-20 hidden bg-darkgray text-white text-[15px] font-medium px-4 py-3 rounded-lg shadow-lg">
-               <p>Dit product is verkocht en kan niet meer worden aangepast!</p>
+                <p>Dit product is verkocht en kan niet meer worden aangepast!</p>
             </div>
 
             <button class="p-2 bg-gray text-white rounded-full cursor-default" onclick="showSnackbar()">
@@ -50,7 +50,6 @@
                 </svg>
             </button>
         </div>
-        
     @else
         <div class="flex justify-center gap-2 mt-2">
             <a href="{{ route('editproduct', [$product]) }}" class="bg-blue text-white p-2 rounded-full">
