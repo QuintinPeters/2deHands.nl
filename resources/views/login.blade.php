@@ -3,7 +3,7 @@
 <body class="font-poppins">
     <x-header />
 
-
+    <x-snackbar />
     <section class="flex flex-col justify-center items-center h-screen">
         <x-snackbar />
         <form action="{{ route('Postlogin') }}" method="POST" class="flex flex-col text-darkgray w-[28%] -mt-5">

@@ -30,14 +30,14 @@ class SocialAuthController extends Controller
 
                 Auth::login($new_user);
 
-                return redirect()->intended('home');
+                return redirect()->intended('home')->with('success', 'Je bent aangemeld');
             } else {
                 Auth::login($user);
-                return redirect()->intended('home');
+                return redirect()->intended('home')->with('success', 'Je bent ingelogd');
             }
         } 
         catch (\Throwable $th) {
-            return redirect()->route('login');
+            return redirect()->route('login')->with('error', 'Er is iets misgegaan, probeer het opnieuw');
         };
     }
 
@@ -70,7 +70,7 @@ class SocialAuthController extends Controller
                 return redirect()->intended('home');
             }
         } catch (\Throwable $th) {
-            return redirect()->route('inloggen');
+            return redirect()->route('login')->with('error', 'Er is iets misgegaan, probeer het opnieuw');
         }
     }
 
