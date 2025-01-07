@@ -8,7 +8,7 @@
             <a href="{{ route('product.show', ['product' => $cartItem->product->id]) }}"
                 class="font-semibold text-blue text-[1.125rem]">{{ $cartItem->product->name }}
             </a>
-            <p class="-mt-1.5 text-sm" href="#">Verkoper: <a href="{{ route('profile', ['user' => $cartItem->product->user->name]) }}"
+            <p class="-mt-1.5 text-sm" href="#">Verkoper: <a href="{{ route('profile', ['user' => $cartItem->product->user->id]) }}"
                     class="underline hover:no-underline text-blue"> {{ $cartItem->product->user->name }}</a></p>
             <p class="max-w-lg truncate text-sm  mr-4">{{ $cartItem->product->description }}</p>
 

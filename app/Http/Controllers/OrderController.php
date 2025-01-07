@@ -97,7 +97,7 @@ class OrderController extends Controller
         }
         Cart::where('user_id', auth()->id())->delete();
 
-        return redirect()->route('account')
+        return redirect()->route('orders')
             ->with('success', 'Bestelling succesvol geplaatst');
 
     }
