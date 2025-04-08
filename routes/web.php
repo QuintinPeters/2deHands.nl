@@ -58,14 +58,14 @@ Route::middleware('auth')->group(function () {
         return view('account.payment');
     })->name('paymentinfo');
 
-    
+
     Route::get('/account/verkopen', [ProductController::class, 'getUserProducts'])->name('accountsales');
     Route::get('/auth/logout', [UserController::class, 'logout'])->name('logout');
 
     Route::get('/winkelwagen', [CartController::class, 'index'])->name('cart.index');
     Route::post('/winkelwagen/toevoegen/{product}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::delete('/winkelwagen/verwijderen/{cart}', [CartController::class, 'remove'])->name('cart.remove');
-    
+
     Route::get('/bestellen', [OrderController::class, 'store'])->name('order.store');
 
     Route::middleware('completed.account')->group(function () {

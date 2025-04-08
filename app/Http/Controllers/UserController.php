@@ -48,16 +48,16 @@ class UserController extends Controller
         $request->validated();
 
         $user = auth()->user();
-        $user->name = $request->name;
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->email = $request->email;
-        $user->city = $request->city;
-        $user->street_name = $request->street_name;
-        $user->house_number = $request->house_number;
-        $user->postal_code = $request->postal_code;
-
-        $user->save();
+        $user->update($request->only([
+            'name', 
+            'first_name', 
+            'last_name', 
+            'email', 
+            'city', 
+            'street_name', 
+            'house_number', 
+            'postal_code'
+        ]));
 
         return redirect()->route('accountinfo')->with('success', 'Account informatie is aangepast');
 
